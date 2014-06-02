@@ -1,4 +1,6 @@
-﻿namespace Stego.Core.Techniques
+﻿using System.Net;
+
+namespace Stego.Core.Techniques
 {
     using System;
     using System.Collections.Generic;
@@ -10,10 +12,8 @@
 
     public abstract class AbstractTechnique : ISteganographicTechnique
     {
-        public abstract int MaximumLengthPerRequest { get; }
+        public abstract int Encode (BitStream data, HttpWebRequest request);
 
-        public abstract int Encode (byte [] data, HttpRequest request);
-
-        public abstract byte [] Decode (HttpRequest request);
+        public abstract int Decode (HttpRequest request, BitStream data);
     }
 }

@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -39,7 +40,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\BitStream.cs" />
+    <Compile Include="Common\ISteganographicTechnique.cs" />
+    <Compile Include="Common\SteganographicInputStream.cs" />
+    <Compile Include="Common\SteganographicOutputStream.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Server\RequestInterceptor.cs" />
+    <Compile Include="Techniques\AbstractTechnique.cs" />
+    <Compile Include="Techniques\CookieSubstitution.cs" />
+    <Compile Include="Techniques\CustomHeaders.cs" />
+    <Compile Include="Techniques\EmptyTechnique.cs" />
+    <Compile Include="Techniques\EntityTag.cs" />
+    <Compile Include="Techniques\HeaderCapitalization.cs" />
+    <Compile Include="Techniques\HeaderOrder.cs" />
+    <Compile Include="Techniques\MD5Checksum.cs" />
+    <Compile Include="Techniques\RefererSubstitution.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

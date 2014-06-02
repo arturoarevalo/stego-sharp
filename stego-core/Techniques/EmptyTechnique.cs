@@ -1,4 +1,7 @@
-﻿namespace Stego.Core.Techniques
+﻿using System.Net;
+using Stego.Core.Common;
+
+namespace Stego.Core.Techniques
 {
     using System;
     using System.Collections.Generic;
@@ -9,17 +12,12 @@
 
     public class EmptyTechnique : AbstractTechnique
     {
-        public override int MaximumLengthPerRequest
-        {
-            get { throw new NotImplementedException (); }
-        }
-
-        public override int Encode (byte [] data, HttpRequest request)
+        public override int Encode (BitStream data, HttpWebRequest request)
         {
             throw new NotImplementedException ();
         }
 
-        public override byte [] Decode (HttpRequest request)
+        public override int Decode (HttpRequest request, BitStream data)
         {
             throw new NotImplementedException ();
         }
