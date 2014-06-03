@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "stego-core", "stego-core\stego-core.csproj", "{C2E12BF9-5E5E-48B6-B98B-DF7AFDE18E4B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "stego-client", "stego-client\stego-client.csproj", "{C8A598E0-6537-481A-80D9-5AEEC348186B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{C2E12BF9-5E5E-48B6-B98B-DF7AFDE18E4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2E12BF9-5E5E-48B6-B98B-DF7AFDE18E4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2E12BF9-5E5E-48B6-B98B-DF7AFDE18E4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8A598E0-6537-481A-80D9-5AEEC348186B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8A598E0-6537-481A-80D9-5AEEC348186B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8A598E0-6537-481A-80D9-5AEEC348186B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8A598E0-6537-481A-80D9-5AEEC348186B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

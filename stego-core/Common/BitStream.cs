@@ -12,9 +12,20 @@ namespace Stego.Core.Common
     {
         private readonly List <bool> sizeBits = new List <bool> ();
         private readonly List <bool> dataBits = new List <bool> ();
+        private int readPosition;
 
         public bool HasLength { get; private set; }
         public int Length { get; private set; }
+
+        public int ReadLength
+        {
+            get { return sizeBits.Count + dataBits.Count; }
+        }
+
+        public int Remaining
+        {
+            get { return Length - readPosition; }
+        }
 
         public BitStream (string data)
         {
@@ -38,18 +49,26 @@ namespace Stego.Core.Common
                 if (sizeBits.Count == 8)
                 {
                     HasLength = true;
-                    Length 
+                    Length = ReadByte (sizeBits, 0) * 8;
                 }
             }
             else
             {
-                dataBits.Add (bit);
+                if (ReadLength < Length)
+                {
+                    dataBits.Add (bit);
+                }
             }
         }
 
         public void Write (byte data)
         {
-            for (int i = 0; i < 8; i++)
+            Write (data, 8);
+        }
+
+        public void Write (int data, int count)
+        {
+            for (int i = 0; i < count; i++)
             {
                 Write ((data & (1 << i)) != 0);
             }
@@ -63,22 +82,80 @@ namespace Stego.Core.Common
             }
         }
 
-
-        private int ReadLength ()
+        public bool Read ()
         {
-            int length = 0;
-
-            for (int i = 0; i < 8; i++)
+            if (readPosition >= ReadLength)
             {
-                if (sizeBits [i])
+                return false;
+            }
+
+            bool value;
+
+            if (readPosition < 8)
+            {
+                value = sizeBits [readPosition];
+            }
+            else
+            {
+                value = dataBits [readPosition - 8];
+            }
+
+            readPosition++;
+            return value;
+        }
+
+        public List<bool> Read (int count)
+        {
+            List<bool> value = new List<bool> ();
+
+            for (int i = 0; i < count; i++)
+            {
+                value.Add (Read ());
+            }
+
+            return value;
+        }
+
+        public byte ReadByte (int count)
+        {
+            List <bool> value = new List <bool> ();
+
+            for (int i = 0; i < count; i++)
+            {
+                value.Add (Read());
+            }
+
+            return ReadByte (value, 0);
+        }
+
+        public byte [] ToArray ()
+        {
+            List <byte> value = new List <byte> ();
+
+            if (HasLength && ReadLength == Length)
+            {
+                for (int i = 0; i < dataBits.Count; i += 8)
                 {
-                    length |= (1 << i);
+                    value.Add (ReadByte (dataBits, i));
                 }
             }
 
-            return length;
+            return value.ToArray ();
         }
 
+        private byte ReadByte (List <bool> source, int start)
+        {
+            byte value = 0;
 
+            for (int i = start, n = 0; i < start + 8; i++, n++)
+            {
+                if (i < source.Count && source [i])
+                {
+                    value |= (byte) (1 << n);
+                }
+            }
+
+            return value;
+        }
     }
 }
