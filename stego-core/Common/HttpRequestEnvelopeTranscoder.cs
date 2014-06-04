@@ -4,6 +4,8 @@ using System.Web;
 
 namespace Stego.Core.Common
 {
+    using Stego.Core.Extensions;
+
     public static class HttpRequestEnvelopeTranscoder
     {
 
@@ -33,6 +35,12 @@ namespace Stego.Core.Common
                 }
             }
 
+            // copy headers
+            foreach (var header in request.Headers)
+            {
+                result.SetRawHeader (header.Name, header.Value);
+            }
+
             return result;
         }
 
@@ -50,6 +58,13 @@ namespace Stego.Core.Common
             {
                 var cookie = request.Cookies [key];
                 result.Cookies.Add (new HttpCookieEnvelope (cookie.Name, cookie.Value));
+            }
+
+            // copy headers
+            foreach (var key in request.Headers.AllKeys)
+            {
+                var header = request.Headers [key];
+                result.Headers.Add(new HttpHeaderEnvelope (key, header));
             }
 
             return result;

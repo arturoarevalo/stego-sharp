@@ -58,7 +58,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="test1.html" />
+    <Content Include="test-header-range-32bits.html" />
+    <Content Include="test-header-range-16bits.html" />
+    <Content Include="test-header-referer-stringcapitalization.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

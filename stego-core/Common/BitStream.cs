@@ -112,7 +112,7 @@ namespace Stego.Core.Common
             return value;
         }
 
-        public List<bool> Read (int count)
+        public List<bool> ReadBits (int count)
         {
             List<bool> value = new List<bool> ();
 
@@ -126,14 +126,16 @@ namespace Stego.Core.Common
 
         public byte ReadByte (int count)
         {
-            List <bool> value = new List <bool> ();
-
-            for (int i = 0; i < count; i++)
-            {
-                value.Add (Read());
-            }
+            List <bool> value = ReadBits (count);
 
             return ReadByte (value, 0);
+        }
+
+        public int ReadInt (int count)
+        {
+            List <bool> value = ReadBits (count);
+
+            return ReadInt(value, 0);
         }
 
         public byte [] ToArray ()
@@ -160,6 +162,21 @@ namespace Stego.Core.Common
                 if (i < source.Count && source [i])
                 {
                     value |= (byte) (1 << n);
+                }
+            }
+
+            return value;
+        }
+
+        private int ReadInt(List<bool> source, int start)
+        {
+            int value = 0;
+
+            for (int i = start, n = 0; i < start + 31; i++, n++)
+            {
+                if (i < source.Count && source[i])
+                {
+                    value |= (int)(1 << n);
                 }
             }
 

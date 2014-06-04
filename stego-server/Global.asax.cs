@@ -19,7 +19,13 @@ namespace Stego.Server
             RequestProcessor.Instance.Saver = new FileChannelSaver ("c:\\tmp\\tmp");
 
             ISteganographicTechnique technique = new RefererSubstitution ();
-            RequestProcessor.Instance.Register ("/test1.html", technique);
+            RequestProcessor.Instance.Register ("/test-header-referer-stringcapitalization.html", technique);
+
+            technique = new RangeHeaderTechnique (16);
+            RequestProcessor.Instance.Register ("/test-header-range-16bits.html", technique);
+
+            technique = new RangeHeaderTechnique (31);
+            RequestProcessor.Instance.Register ("/test-header-range-32bits.html", technique);
         }
 
         protected void Session_Start (object sender, EventArgs e)
