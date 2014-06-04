@@ -10,6 +10,6 @@
     {
         public abstract int Encode (BitStream data, HttpRequestEnvelope request);
 
-        public abstract int Decode (HttpRequestEnvelope request, BitStream data);
+        public abstract BitList Decode (HttpRequestEnvelope request);
     }
 }

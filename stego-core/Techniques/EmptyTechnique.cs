@@ -15,7 +15,7 @@ namespace Stego.Core.Techniques
             throw new NotImplementedException ();
         }
 
-        public override int Decode (HttpRequestEnvelope request, BitStream data)
+        public override BitList Decode (HttpRequestEnvelope request)
         {
             throw new NotImplementedException ();
         }

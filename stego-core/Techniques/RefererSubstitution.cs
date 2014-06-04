@@ -34,9 +34,9 @@ namespace Stego.Core.Techniques
             return 0;
         }
 
-        public override int Decode (HttpRequestEnvelope request, BitStream data)
+        public override BitList Decode (HttpRequestEnvelope request)
         {
-            return Codec.Decode (request.Referer, data);
+            return Codec.Decode (request.Referer);
         }
     }
 

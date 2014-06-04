@@ -1,9 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
 
 namespace Stego.Core.Common
 {
+    using System.Collections.Generic;
+
     public class HttpRequestEnvelope
     {
+        public string Method { get; set; }
+        public string Address { get; set; }
         public string Url { get; set; }
         public string Referer { get; set; }
 
@@ -12,6 +16,13 @@ namespace Stego.Core.Common
         public HttpRequestEnvelope ()
         {
             Cookies = new List <HttpCookieEnvelope> ();
+            Method = "GET";
+        }
+
+
+        public override string ToString ()
+        {
+            return String.Format ("Url [{0}] Referer [{1}]", Url, Referer);
         }
     }
 }

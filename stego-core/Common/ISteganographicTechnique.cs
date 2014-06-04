@@ -1,7 +1,6 @@
 ﻿namespace Stego.Core.Common
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Text;
 
@@ -22,8 +21,7 @@
         /// Reads a bunch of bits from a HTTP request and writes them in the stream.
         /// </summary>
         /// <param name="request">The HttpRequestWrapper object from which to decode the data.</param>
-        /// <param name="data">A BitStream where the decoded bits will be written.</param>
-        /// <returns>The number of bits decoded.</returns>
-        int Decode (HttpRequestEnvelope request, BitStream data);
+        /// <returns>The decoded bits.</returns>
+        BitList Decode (HttpRequestEnvelope request);
     }
 }

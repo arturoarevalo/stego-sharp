@@ -61,6 +61,14 @@ namespace Stego.Core.Common
             }
         }
 
+        public void Write (BitList data)
+        {
+            foreach (bool value in data)
+            {
+                Write (value);
+            }
+        }
+
         public void Write (byte data)
         {
             Write (data, 8);

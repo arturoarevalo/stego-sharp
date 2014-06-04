@@ -23,26 +23,26 @@
               </system.webServer>
             </configuration>
          */
-        
-        private static RequestInterceptor instance;
-
-        /// <summary>
-        /// Returns the singleton instance of the class.
-        /// </summary>
-        public static RequestInterceptor Instance
-        {
-            get { return instance; }
-        }
-
-        public RequestInterceptor ()
-        {
-            // singleton implementation ... very weak, but will work for now
-            instance = this;
-        }
 
         public void Init (HttpApplication context)
         {
-            throw new NotImplementedException ();
+            context.BeginRequest += OnBeginRequest;
+        }
+
+        private void OnBeginRequest (object sender, EventArgs eventArgs)
+        {
+            HttpApplication httpApplication = (HttpApplication) sender;
+            HttpRequest request = httpApplication.Request;
+
+#if DEBUG
+            System.Diagnostics.Debug.WriteLine ("Begin request interception");
+#endif
+
+            RequestProcessor.Instance.Process (request);
+
+#if DEBUG
+            System.Diagnostics.Debug.WriteLine ("End request interception");
+#endif
         }
 
         public void Dispose ()

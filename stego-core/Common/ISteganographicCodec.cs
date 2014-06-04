@@ -4,6 +4,6 @@
     {
         string Encode (BitStream stream, string data);
 
-        int Decode (string data, BitStream stream);
+        BitList Decode (string data);
     }
 }
