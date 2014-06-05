@@ -4,19 +4,19 @@
     using System.Linq;
     using Stego.Core.Common;
 
-    public abstract class AbstractSingleHeaderTechnique : ISteganographicTechnique
+    public abstract class AbstractSingleCookieTechnique : ISteganographicTechnique
     {
-        protected string headerName;
+        protected string cookieName;
 
         protected abstract string EncodeValue (BitStream data);
         protected abstract BitList DecodeValue (string data);
 
-        protected AbstractSingleHeaderTechnique (string header)
+        protected AbstractSingleCookieTechnique (string header)
         {
-            headerName = header;
+            cookieName = header;
         }
 
-        private AbstractSingleHeaderTechnique ()
+        private AbstractSingleCookieTechnique ()
         {
             // disallow default constructor
         }
@@ -24,20 +24,19 @@
         public int Encode (BitStream data, HttpRequestEnvelope request)
         {
             string value = EncodeValue (data);
-            request.Headers.Add (new HttpHeaderEnvelope (headerName, value));
+            request.Cookies.Add (new HttpCookieEnvelope (cookieName, value));
 
             return 0;
         }
 
         public BitList Decode (HttpRequestEnvelope request)
         {
-
-            HttpHeaderEnvelope header = request.Headers.FirstOrDefault (h => h.Name.Equals (headerName, StringComparison.InvariantCultureIgnoreCase));
-            if (header != null)
+            HttpCookieEnvelope cookie = request.Cookies.FirstOrDefault (h => h.Name.Equals (cookieName, StringComparison.InvariantCultureIgnoreCase));
+            if (cookie != null)
             {
-                if (!String.IsNullOrEmpty (header.Value))
+                if (!String.IsNullOrEmpty (cookie.Value))
                 {
-                    return DecodeValue (header.Value);
+                    return DecodeValue (cookie.Value);
                 }
             }
 

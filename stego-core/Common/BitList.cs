@@ -24,5 +24,13 @@
                 Add (data [i]);
             }
         }
+
+        public void Add (BitList data)
+        {
+            foreach (bool value in data)
+            {
+                Add (value);
+            }
+        }
     }
 }

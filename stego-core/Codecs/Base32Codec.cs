@@ -4,7 +4,7 @@
     {
         private const string Base32CharacterMap = "abcdefghijklmnopqrstuvwxyz234567";
 
-        public Base32Codec (int minumum, int maximum) : base (5, Base32CharacterMap, minumum, maximum) { }
-        public Base32Codec (int minumum) : base (5, Base32CharacterMap, minumum, minumum) { }
+        public Base32Codec (int minumum, int maximum, bool allowOverflow = false) : base (5, Base32CharacterMap, minumum, maximum, allowOverflow) { }
+        public Base32Codec (int minumum, bool allowOverflow = false) : base (5, Base32CharacterMap, minumum, minumum, allowOverflow) { }
     }
 }

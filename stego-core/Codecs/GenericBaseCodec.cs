@@ -10,24 +10,27 @@ namespace Stego.Core.Codecs
 
         public int BitsPerCharacter { get; set; }
         public string CharacterMap { get; set; }
+        public bool AllowOverflow { get; set; }
 
         public int MinimumCharacterCount { get; set; }
         public int MaximumCharactercount { get; set; }
 
-        public GenericBaseCodec (int bitsPerCharacter, string characterMap, int minimum, int maximum)
+        public GenericBaseCodec (int bitsPerCharacter, string characterMap, int minimum, int maximum, bool allowOverflow)
         {
             BitsPerCharacter = bitsPerCharacter;
             CharacterMap = characterMap;
             MinimumCharacterCount = minimum;
             MaximumCharactercount = maximum;
+            AllowOverflow = allowOverflow;
         }
 
-        public GenericBaseCodec (int bitsPerCharacter, string characterMap, int characterCount)
+        public GenericBaseCodec (int bitsPerCharacter, string characterMap, int characterCount, bool allowOverflow)
         {
             BitsPerCharacter = bitsPerCharacter;
             CharacterMap = characterMap;
             MinimumCharacterCount = characterCount;
             MaximumCharactercount = characterCount;
+            AllowOverflow = allowOverflow;
         }
 
         public string Encode (BitStream stream, string data)
@@ -37,7 +40,7 @@ namespace Stego.Core.Codecs
             int count = random.Next (MinimumCharacterCount, MaximumCharactercount + 1);
             for (int i = 0; i < count; i++)
             {
-                if (stream.Remaining > 0)
+                if (stream.Remaining > 0 || AllowOverflow)
                 {
                     int index = stream.ReadByte (BitsPerCharacter);
                     builder.Append (CharacterMap [index]);
@@ -51,9 +54,8 @@ namespace Stego.Core.Codecs
         {
             BitList stream = new BitList ();
 
-            if (String.IsNullOrEmpty (data))
+            if (!String.IsNullOrEmpty (data))
             {
-
                 for (int i = 0; i < data.Length; i++)
                 {
                     int index = CharacterMap.IndexOf (data [i]);

@@ -52,6 +52,7 @@
     <Compile Include="Codecs\Base16Codec.cs" />
     <Compile Include="Codecs\Base32Codec.cs" />
     <Compile Include="Codecs\Base64Codec.cs" />
+    <Compile Include="Codecs\Base8Codec.cs" />
     <Compile Include="Codecs\GenericBaseCodec.cs" />
     <Compile Include="Codecs\StringCapitalizationCodec.cs" />
     <Compile Include="Common\BitList.cs" />
@@ -72,12 +73,15 @@
     <Compile Include="Server\RequestInterceptor.cs" />
     <Compile Include="Server\RequestProcessor.cs" />
     <Compile Include="Server\TechniqueProcessor.cs" />
+    <Compile Include="Techniques\AbstractMultipleCookieTechnique.cs" />
+    <Compile Include="Techniques\AbstractSingleCookieTechnique.cs" />
     <Compile Include="Techniques\AbstractSingleHeaderTechnique.cs" />
     <Compile Include="Techniques\AbstractTechnique.cs" />
     <Compile Include="Techniques\CookieSubstitution.cs" />
     <Compile Include="Techniques\CustomHeaders.cs" />
     <Compile Include="Techniques\EmptyTechnique.cs" />
     <Compile Include="Techniques\EntityTag.cs" />
+    <Compile Include="Techniques\GoogleAnalyticsCookiesTechnique.cs" />
     <Compile Include="Techniques\HeaderCapitalization.cs" />
     <Compile Include="Techniques\HeaderOrder.cs" />
     <Compile Include="Techniques\MD5Checksum.cs" />

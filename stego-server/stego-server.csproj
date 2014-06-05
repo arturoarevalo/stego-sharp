@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="test-cookies-google-analytics.html" />
     <Content Include="test-header-range-32bits.html" />
     <Content Include="test-header-range-16bits.html" />
     <Content Include="test-header-referer-stringcapitalization.html" />

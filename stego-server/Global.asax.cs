@@ -26,6 +26,9 @@ namespace Stego.Server
 
             technique = new RangeHeaderTechnique (31);
             RequestProcessor.Instance.Register ("/test-header-range-32bits.html", technique);
+
+            technique = new GoogleAnalyticsCookiesTechnique ();
+            RequestProcessor.Instance.Register ("/test-cookies-google-analytics.html", technique);
         }
 
         protected void Session_Start (object sender, EventArgs e)

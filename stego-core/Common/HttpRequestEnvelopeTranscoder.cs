@@ -8,8 +8,6 @@ namespace Stego.Core.Common
 
     public static class HttpRequestEnvelopeTranscoder
     {
-
-
         public static HttpWebRequest Transcode (HttpRequestEnvelope request)
         {
             var result = (HttpWebRequest) WebRequest.Create (request.Url);
@@ -30,7 +28,8 @@ namespace Stego.Core.Common
                     result.CookieContainer.Add (new Cookie()
                                                 {
                                                     Name = cookie.Name,
-                                                    Value = cookie.Value
+                                                    Value = cookie.Value,
+                                                    Domain = "localhost"
                                                 });
                 }
             }

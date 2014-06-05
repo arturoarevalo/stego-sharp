@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -30,12 +31,20 @@ namespace Stego.Client
             generator.Technique = technique;
             generator.UrlList.Add("http://localhost:22000/test-header-range-16bits.html");
         }
+
         static void CreateRangeHeaderTechnique32(RequestGenerator generator)
         {
             var technique = new RangeHeaderTechnique(31);
 
             generator.Technique = technique;
             generator.UrlList.Add("http://localhost:22000/test-header-range-32bits.html");
+        }
+        static void CreateGoogleAnalyticsCookiesTechnique (RequestGenerator generator)
+        {
+            var technique = new GoogleAnalyticsCookiesTechnique ();
+
+            generator.Technique = technique;
+            generator.UrlList.Add ("http://localhost:22000/test-cookies-google-analytics.html");
         }
 
         static void Main (string [] args)
@@ -46,7 +55,8 @@ namespace Stego.Client
             var generator = new RequestGenerator();
 
             //CreateRefererTechnique (generator);
-            CreateRangeHeaderTechnique32 (generator);
+            //CreateRangeHeaderTechnique32 (generator);
+            CreateGoogleAnalyticsCookiesTechnique (generator);
 
             foreach (var request in generator.Generate ("Hello world!!!!"))
             {
