@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Security;
 using System.Web.SessionState;
 using Stego.Core.ChannelSavers;
+using Stego.Core.Codecs;
 using Stego.Core.Common;
 using Stego.Core.Server;
 using Stego.Core.Techniques;
@@ -19,16 +20,19 @@ namespace Stego.Server
             RequestProcessor.Instance.Saver = new FileChannelSaver ("c:\\tmp\\tmp");
 
             ISteganographicTechnique technique = new RefererSubstitution ();
-            RequestProcessor.Instance.Register ("/test-header-referer-stringcapitalization.html", technique);
+            RequestProcessor.Instance.Register ("/referer.html", technique);
+
+            technique = new RefererSubstitution { Codec = new Base64Codec (32) };
+            RequestProcessor.Instance.Register ("/referer-base64-32.html", technique);
 
             technique = new RangeHeaderTechnique (16);
-            RequestProcessor.Instance.Register ("/test-header-range-16bits.html", technique);
+            RequestProcessor.Instance.Register ("/range-16.html", technique);
 
             technique = new RangeHeaderTechnique (31);
-            RequestProcessor.Instance.Register ("/test-header-range-32bits.html", technique);
+            RequestProcessor.Instance.Register ("/range-32.html", technique);
 
             technique = new GoogleAnalyticsCookiesTechnique ();
-            RequestProcessor.Instance.Register ("/test-cookies-google-analytics.html", technique);
+            RequestProcessor.Instance.Register ("/cookies-google.html", technique);
         }
 
         protected void Session_Start (object sender, EventArgs e)

@@ -11,21 +11,21 @@
     public static class HttpWebRequestExtensions
     {
         private static string [] RestrictedHeaders = new string []
-        {
-            "Accept",
-            "Connection",
-            "Content-Length",
-            "Content-Type",
-            "Date",
-            "Expect",
-            "Host",
-            "If-Modified-Since",
-            "Range",
-            "Referer",
-            "Transfer-Encoding",
-            "User-Agent",
-            "Proxy-Connection"
-        };
+                                                     {
+                                                         "Accept",
+                                                         "Connection",
+                                                         "Content-Length",
+                                                         "Content-Type",
+                                                         "Date",
+                                                         "Expect",
+                                                         "Host",
+                                                         "If-Modified-Since",
+                                                         "Range",
+                                                         "Referer",
+                                                         "Transfer-Encoding",
+                                                         "User-Agent",
+                                                         "Proxy-Connection"
+                                                     };
 
         private static Dictionary <string, PropertyInfo> HeaderProperties = new Dictionary <string, PropertyInfo> (StringComparer.OrdinalIgnoreCase);
 
@@ -58,15 +58,15 @@
 
                     return;
                 }
+            }
 
-                if (HeaderProperties.ContainsKey (name))
-                {
-                    HeaderProperties [name].SetValue (request, value, null);
-                }
-                else
-                {
-                    request.Headers [name] = value;
-                }
+            if (HeaderProperties.ContainsKey (name))
+            {
+                HeaderProperties [name].SetValue (request, value, null);
+            }
+            else
+            {
+                request.Headers [name] = value;
             }
         }
     }

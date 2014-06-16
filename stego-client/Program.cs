@@ -12,65 +12,84 @@ using Stego.Core.Techniques;
 
 namespace Stego.Client
 {
-    class Program
+    internal class Program
     {
-        static void CreateRefererTechnique (RequestGenerator generator)
+        private static void Main (string [] args)
         {
-            var technique = new RefererSubstitution();
-            technique.UrlList.Add("http://localhost:22000/test1.html");
-
-            generator.Technique = technique;
-
-            generator.UrlList.Add("http://localhost:22000/test-header-referer-stringcapitalization.html");
-        }
-
-        static void CreateRangeHeaderTechnique16(RequestGenerator generator)
-        {
-            var technique = new RangeHeaderTechnique (16);
-
-            generator.Technique = technique;
-            generator.UrlList.Add("http://localhost:22000/test-header-range-16bits.html");
-        }
-
-        static void CreateRangeHeaderTechnique32(RequestGenerator generator)
-        {
-            var technique = new RangeHeaderTechnique(31);
-
-            generator.Technique = technique;
-            generator.UrlList.Add("http://localhost:22000/test-header-range-32bits.html");
-        }
-        static void CreateGoogleAnalyticsCookiesTechnique (RequestGenerator generator)
-        {
-            var technique = new GoogleAnalyticsCookiesTechnique ();
-
-            generator.Technique = technique;
-            generator.UrlList.Add ("http://localhost:22000/test-cookies-google-analytics.html");
-        }
-
-        static void Main (string [] args)
-        {
-            //technique.UrlList.Add ("http://www.referer2.com/samplePage.html");
-            //technique.Codec = new Base32Codec (128);
-            
-            var generator = new RequestGenerator();
-
-            //CreateRefererTechnique (generator);
-            //CreateRangeHeaderTechnique32 (generator);
-            CreateGoogleAnalyticsCookiesTechnique (generator);
-
-            foreach (var request in generator.Generate ("Hello world!!!!"))
+            // check command line parameters
+            if (args.Length < 3)
             {
+                Console.WriteLine ("Invalid parameters");
+                Environment.Exit (1);
+            }
+
+            // create the request generator
+            var generator = new RequestGenerator ();
+
+            // parse technique name
+            switch (args [0].ToLower ())
+            {
+                case "range-16":
+                    generator.Technique = new RangeHeaderTechnique (16);
+                    break;
+
+                case "range-32":
+                    generator.Technique = new RangeHeaderTechnique (31);
+                    break;
+
+                case "referer":
+                    generator.Technique = new RefererSubstitution ();
+                    break;
+
+                case "referer-base64-32":
+                    generator.Technique = new RefererSubstitution { Codec = new Base64Codec (32) };
+                    break;
+
+                case "cookies-google":
+                    generator.Technique = new GoogleAnalyticsCookiesTechnique ();
+                    break;
+
+                default:
+                    Console.WriteLine ("Invalid technique name");
+                    Environment.Exit (1);
+                    break;
+            }
+
+
+            // load urls
+            foreach (var url in args [1].Split (','))
+            {
+                generator.UrlList.Add (url);
+            }
+
+            // load data
+            string data = args [2];
+
+            // initialize statistics
+            int requestsDone = 0;
+            int stegoBits = data.Length * 8 + 8; // 8 bits per character + 8 bits (size)
+            int additionalBits = 0;
+
+            foreach (var request in generator.Generate (data))
+            {
+                // update statistics
+                additionalBits += (request.FinalSize - request.OriginalSize) * 8;
+                requestsDone++;
+
                 var transcoded = HttpRequestEnvelopeTranscoder.Transcode (request);
 
-                Console.WriteLine("Request {0}", request);
-
+                Console.WriteLine ("Performing request {0}", request);
                 HttpWebResponse response = (HttpWebResponse) transcoded.GetResponse ();
                 Console.WriteLine ("   response code {0}", response.StatusCode);
             }
 
-            Console.WriteLine("Done!");
-
-            Console.ReadKey ();
+            Console.WriteLine ("");
+            Console.WriteLine ("-- Statistics --");
+            Console.WriteLine ("Stego message: {0} bits", stegoBits);
+            Console.WriteLine ("Requests done: {0}", requestsDone);
+            Console.WriteLine ("Additional data sent: {0} bits", additionalBits);
+            Console.WriteLine ("Stego bits/request: {0} bpr", stegoBits / requestsDone);
+            Console.WriteLine ("Additional bits/request: {0} bpr", additionalBits / requestsDone);
         }
     }
 }

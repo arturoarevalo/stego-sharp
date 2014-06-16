@@ -11,11 +11,12 @@ namespace Stego.Core.Common
         public string Method { get; set; }
         public string Address { get; set; }
         public string Url { get; set; }
-        public string Referer { get; set; }
+
+        public int OriginalSize { get; set; }
+        public int FinalSize { get; set; }
 
         public List<HttpCookieEnvelope> Cookies { get; private set; }
         public List<HttpHeaderEnvelope> Headers { get; private set; }
-
 
         public HttpRequestEnvelope ()
         {
@@ -24,15 +25,13 @@ namespace Stego.Core.Common
             Method = "GET";
         }
 
-
         public override string ToString ()
         {
             StringBuilder builder = new StringBuilder();
 
             builder
                 .AppendFormat ("Method [{0}]", Method)
-                .AppendFormat (" Url [{0}]", Url)
-                .AppendFormat (" Referer [{0}]", Referer);
+                .AppendFormat (" Url [{0}]", Url);
 
             foreach (var cookie in Cookies)
             {
@@ -45,6 +44,31 @@ namespace Stego.Core.Common
             }
 
             return builder.ToString ();
+        }
+
+        public int Size
+        {
+            get
+            {
+                int size = 0;
+
+                size += Method.Length;
+                size += Url.Length;
+
+                foreach (var cookie in Cookies)
+                {
+                    size += cookie.Name.Length;
+                    size += cookie.Value.Length;
+                }
+
+                foreach (var header in Headers)
+                {
+                    size += header.Name.Length;
+                    size += header.Value.Length;
+                }
+
+                return size;
+            }
         }
     }
 }

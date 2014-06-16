@@ -70,7 +70,7 @@ namespace Stego.Core.Techniques
                 stream.Add (new Base8Codec (1).Decode (parts [5]));
             }
 
-            if (cookieName == "_utmb")
+            if (cookieName == "__utmb")
             {
                 stream.Add (new Base8Codec (8).Decode (parts [0]));
                 stream.Add (new Base8Codec (1).Decode (parts [1]));
@@ -78,12 +78,12 @@ namespace Stego.Core.Techniques
                 stream.Add (new Base8Codec (10).Decode (parts [3]));
             }
 
-            if (cookieName == "_utmc")
+            if (cookieName == "__utmc")
             {
                 stream.Add (new Base8Codec (8).Decode (parts [0]));
             }
 
-            if (cookieName == "_utmz")
+            if (cookieName == "__utmz")
             {
                 stream.Add (new Base8Codec (8).Decode (parts [0]));
                 stream.Add (new Base8Codec (10).Decode (parts [1]));

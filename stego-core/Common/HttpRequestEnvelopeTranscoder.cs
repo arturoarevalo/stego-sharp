@@ -14,11 +14,6 @@ namespace Stego.Core.Common
 
             result.Method = request.Method;
 
-            if (!String.IsNullOrEmpty (request.Referer))
-            {
-                result.Referer = request.Referer;
-            }
-
             if (request.Cookies.Count > 0)
             {
                 // copy cookies
@@ -48,8 +43,7 @@ namespace Stego.Core.Common
             var result = new HttpRequestEnvelope
                          {
                              Method = request.HttpMethod, 
-                             Address = request.UserHostAddress,
-                             Referer = request.Headers["Referer"]
+                             Address = request.UserHostAddress
                          };
 
             // copy cookies
@@ -68,7 +62,5 @@ namespace Stego.Core.Common
 
             return result;
         }
-
-        
     }
 }

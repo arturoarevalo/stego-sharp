@@ -44,7 +44,7 @@ namespace Stego.Core.Techniques
                 {
                     if (!String.IsNullOrEmpty (cookie.Value))
                     {
-                        stream.Add(DecodeValue (cookieName, cookie.Value));
+                        stream.Add (DecodeValue (cookieName, cookie.Value));
                     }
                 }
             }

@@ -45,8 +45,15 @@ namespace Stego.Core.Client
             {
                 HttpRequestEnvelope envelope = new HttpRequestEnvelope ();
                 envelope.Url = UrlSelector.SelectNext (UrlList);
+                envelope.Headers.Add (new HttpHeaderEnvelope ("Referer", envelope.Url));
+
+                // get size of the http envelope before applying any changes
+                envelope.OriginalSize = envelope.Size;
 
                 int read = Technique.Encode (input, envelope);
+
+                // get final size of the http envelope
+                envelope.FinalSize = envelope.Size;
 
                 yield return envelope;
             }

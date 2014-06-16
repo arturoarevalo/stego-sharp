@@ -12,14 +12,14 @@
             this.bitsPerValue = bitsPerValue;
         }
 
-        protected override string EncodeValue (BitStream data)
+        protected override string EncodeValue (BitStream data, string previousData, HttpRequestEnvelope request)
         {
             int firstValue = data.ReadInt(bitsPerValue);
 
             return String.Format("bytes={0}-", firstValue);
         }
 
-        protected override BitList DecodeValue (string data)
+        protected override BitList DecodeValue (string data, HttpRequestEnvelope request)
         {
             BitList stream = new BitList();
 

@@ -57,11 +57,12 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="cookies-google.html" />
     <Content Include="Global.asax" />
-    <Content Include="test-cookies-google-analytics.html" />
-    <Content Include="test-header-range-32bits.html" />
-    <Content Include="test-header-range-16bits.html" />
-    <Content Include="test-header-referer-stringcapitalization.html" />
+    <Content Include="range-16.html" />
+    <Content Include="range-32.html" />
+    <Content Include="referer-base64-32.html" />
+    <Content Include="referer.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

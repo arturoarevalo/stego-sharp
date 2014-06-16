@@ -77,16 +77,12 @@
     <Compile Include="Techniques\AbstractSingleCookieTechnique.cs" />
     <Compile Include="Techniques\AbstractSingleHeaderTechnique.cs" />
     <Compile Include="Techniques\AbstractTechnique.cs" />
-    <Compile Include="Techniques\CookieSubstitution.cs" />
-    <Compile Include="Techniques\CustomHeaders.cs" />
-    <Compile Include="Techniques\EmptyTechnique.cs" />
-    <Compile Include="Techniques\EntityTag.cs" />
     <Compile Include="Techniques\GoogleAnalyticsCookiesTechnique.cs" />
-    <Compile Include="Techniques\HeaderCapitalization.cs" />
-    <Compile Include="Techniques\HeaderOrder.cs" />
-    <Compile Include="Techniques\MD5Checksum.cs" />
     <Compile Include="Techniques\RangeHeaderTechnique.cs" />
     <Compile Include="Techniques\RefererSubstitution.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Techniques\NotImplemented\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
